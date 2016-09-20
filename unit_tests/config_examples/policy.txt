@@ -1,0 +1,60 @@
+    edit 1
+        set srcintf "port1"
+        set dstintf "wan1"
+        set srcaddr "internal.lan.group"
+        set dstaddr "external.email.server"
+        set action accept
+        set schedule "always"
+        set service "SMTP"
+        set logtraffic all
+        set nat enable
+    next
+    edit 2
+        set srcintf "port1"
+        set dstintf "wan1"
+        set srcaddr "internal.lan.group"
+        set action accept
+        set fsso enable
+        set comments "fsso identity based web filter"
+        set identity-based enable
+        set nat enable
+            config identity-based-policy
+                edit 1
+                    set schedule "always"
+                    set logtraffic all
+                    set utm-status enable
+                    set groups "Staff"
+                    set dstaddr "all"
+                    set service "HTTP, HTTPS"
+                    set av-profile "default"
+                    set webfilter-profile "Staff"
+                    set ips-sensor "default"
+                    set application-list "default"
+                    set profile-protocol-options "default"
+                next
+                edit 2
+                    set schedule "always"
+                    set logtraffic all
+                    set utm-status enable
+                    set groups "Intern"
+                    set dstaddr "all"
+                    set service "HTTP, HTTPS"
+                    set av-profile "default"
+                    set webfilter-profile "Intern"
+                    set ips-sensor "default"
+                    set application-list "default"
+                    set profile-protocol-options "default"
+                next
+            end
+    next
+    edit 3
+        set srcintf "wan1"
+        set dstintf "port1"
+        set srcaddr "any"
+        set dstaddr "internal.web.server"
+        set action accept
+        set status disable
+        set schedule "always"
+        set service "HTTP,HTTPS"
+        set logtraffic all
+    next

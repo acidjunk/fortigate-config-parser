@@ -1,0 +1,27 @@
+    edit "email.server.1"
+        set subnet 10.10.10.1 255.255.255.255
+    next
+    edit "email.server.2"
+        set subnet 10.10.10.2 255.255.255.255
+    next
+    edit "email.filter.server"
+        set subnet 10.10.10.20 255.255.255.255
+    next
+    edit "intern.lan"
+        set type iprange
+        set end-ip 10.10.20.15
+        set start-ip 10.10.20.30
+    next
+	edit "restricted.lan"
+        set type iprange
+        set end-ip 10.10.20.14
+        set start-ip 10.10.20.1
+    next
+	edit "executive.lan"
+        set type iprange
+        set end-ip 10.10.30.100
+        set start-ip 10.10.30.1
+    next
+    edit "employee.lan"
+        set subnet 10.10.50.0 255.255.255.0
+    next

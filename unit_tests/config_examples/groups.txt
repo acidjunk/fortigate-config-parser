@@ -1,0 +1,6 @@
+	edit "email.servers"
+        set member "email.server.1" "email.server.2" "email.filter.server"
+    next
+    edit "internal.lan"
+        set member "intern.lan" "employee.lan" "executive.lan" "restricted.lan"
+    next
