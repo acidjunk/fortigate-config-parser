@@ -12,7 +12,7 @@ name: ID | string;
 string: double_quoted_string | single_quoted_string;
 double_quoted_string : '"' ( '\\"' | . )*? '"' ;
 single_quoted_string : '\'' ( . )*? '\'' ;
-value: ID | string | number | array | hash;
+value: ID | string | number | array ;
 number:
     '-'? DIGIT+ ('.' DIGIT*)?;
 array:
@@ -23,20 +23,6 @@ array:
     )?
     filler
     ']';
-hash:
-    '{'
-      filler
-      hashentries?
-      filler
-    '}'
-  ;
-
-hashentries:
-    hashentry (WS hashentry)*
-  ;
-
-hashentry:
-    name filler '=>' filler value;
 
 ID: [a-zA-Z_$] [a-zA-Z_$0-9]* ;
 DIGIT: [0-9];
