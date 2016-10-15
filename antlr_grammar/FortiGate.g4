@@ -15,24 +15,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 grammar FortiGate;
-/*
-CONFIG : 'config' ;
-EDIT: 'edit' ;
-END: 'end'
-*/
 
-config_section  : 'config' (statements)* 'end' ;
+
+file: config_vdom config_global config_vdom+;
+
+config_global	: 'config global' config_system+ NEWLINE NEWLINE 'end' ;
+config_system	: 'config system' IDENTIFIER NEWLINE statements+ NEWLINE 'end' ;
+config_vdom		: 'config vdom' (statements)* NEWLINE 'end' ;
+
+edit_section	: 'edit' '"'IDENTIFIER'"' NEWLINE set_statement* 'next' ;
+
+set_statement	: 'set' IDENTIFIER+ NEWLINE ;
 
 /* a statement can be either a nested config section or some statements */
-statements	: config_section
-			| 'edit' IDENTIFIER 'next'
-			| IDENTIFIER+
-			;
+statements		: edit_section
+				| set_statement
+				| IDENTIFIER+
+				;
 
 
 //LEXER RULES
-IDENTIFIER 	: [a-z][A-Z][0-9]* ;
-WS 			:	[ \t\r\n]+ -> skip ; // Define whitespace rule, toss it out
+IDENTIFIER 	: [a-zA-Z0-9-=]+ ;
+NEWLINE		: '\r'? '\n' ; // return newlines to parser: TODO; determine if we need this to determine END of section
+WS 			: [ \t]+ -> skip ; // Define whitespace rule, toss it out
+COMMENT		: '#' -> skip ;
 
 /*
 
