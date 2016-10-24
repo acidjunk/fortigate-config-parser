@@ -6,4 +6,4 @@ source ~/.bash_profile
 antlr4 FortiGate.g4
 javac *.java
 sleep 3
-grun FortiGate file -gui ../conf_examples/global.conf
+grun FortiGate file -gui ../conf_examples/example.conf
