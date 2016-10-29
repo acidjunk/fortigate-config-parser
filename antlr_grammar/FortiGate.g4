@@ -30,15 +30,94 @@ set_statement	: 'set' IDENTIFIER+ NEWLINE ;
 /* a statement can be either a nested config section or some statements */
 statements		: edit_section
 				| set_statement
-				| IDENTIFIER+
+				| WORD+
+				| CATCH_ALL+
 				;
 
 
 //LEXER RULES
-IDENTIFIER 	: [a-zA-Z0-9-=]+ ;
+WORD    	: ('a'..'z' | 'A'..'Z')+;
 NEWLINE		: '\r'? '\n' ; // return newlines to parser: TODO; determine if we need this to determine END of section
 WS 			: [ \t]+ -> skip ; // Define whitespace rule, toss it out
 COMMENT		: '#' -> skip ;
+
+CATCH_ALL : . ;
+
+/* All distinct config tokens */
+//Found in GLOBAL config part
+CONFIG_GLOBAL 						: 'config global'
+CONFIG_SYSTEM_GLOBAL 				: 'config system global'
+CONFIG_SYSTEM_ACCPROFILE			: 'config system accprofile'
+CONFIG_SYSTEM_INTERFACE				: 'config system interface'
+CONFIG_SYSTEM_CUSTOM_LANGUAGE			: 'config system custom-language'
+CONFIG_SYSTEM_ADMIN						: 'config system admin'
+CONFIG_SYSTEM_HA						: 'config system ha'
+CONFIG_SYSTEM_DNS						: 'config system dns'
+CONFIG_SYSTEM_REPLACEMSG_IMAGE			: 'config system replacemsg-image'
+CONFIG_SYSTEM_REPLACEMSG_MAIL			: 'config system replacemsg mail "email-block"'
+CONFIG_VPN_CERTIFICATE_LOCAL			: 'config vpn certificate local'
+CONFIG_USER_DEVICE_CATEGORY				: 'config user device-category'
+CONFIG_SYSTEM_RESOURCE_LIMITS			: 'config system resource-limits'
+CONFIG_SYSTEM_VDOM_PROPERTY				: 'config system vdom-property'
+CONFIG_SYSTEM_SESSIONS_SYNC				: 'config system session-sync'
+CONFIG_SYSTEM_SESSIONS_HELPER			: 'config system session-helper'
+
+//Found in VDOM config part
+CONFIG_VDOM 							: 'config vdom'
+CONFIG_SYSTEM_SETTINGS					: 'config system settings'
+CONFIG_SYSTEM_REPLACEMSG_GROUP			: 'config system replacemsg-group'
+CONFIG_FIREWALL_ADDRESS					: 'config firewall address'
+CONFIG_FIREWALL_MULTICAST_ADDRESS		: 'config firewall multicast-address'
+CONFIG_FIREWALL_ADDRESS6				: 'config firewall address6'
+CONFIG_FIREWALL_SERVICE_CATEGORY		: 'config firewall service category'
+CONFIG_FIREWALL_SERVICE_CUSTOM			: 'config firewall service custom'
+CONFIG_FIREWALL_SERVICE_GROUP			: 'config firewall service group'
+CONFIG_WEBFILTER_FTGD_LOCAL_CAT			: 'config webfilter ftgd-local-cat'
+CONFIG_IPS_SENSOR						: 'config ips sensor'
+CONFIG_FIREWALL_SHAPER					: 'config firewall shaper traffic-shaper'
+CONFIG_WEB_PROXY_GLOBAL					: 'config web-proxy global'
+CONFIG_APPLICATION_LIST					: 'config application list'
+CONFIG_DLP_FILEPATTERN					: 'config dlp filepattern'
+CONFIG_DLP_FP_SENSITIVITY				: 'config dlp fp-sensitivity'
+CONFIG_DLP_SENSOR						: 'config dlp sensor'
+CONFIG_WEBFILTER_CONTENT				: 'config webfilter content'
+CONFIG_WEBFILTER_URLFILTER				: 'config webfilter urlfilter'
+CONFIG_SPAMFILTER_BWORD					: 'config spamfilter bword'
+CONFIG_SPAMFILTER_BWL					: 'config spamfilter bwl'
+CONFIG_SPAMFILTER_MHEADER				: 'config spamfilter mheader'
+CONFIG_SPAMFILTER_DNSBL					: 'config spamfilter dnsbl'
+CONFIG_SPAMFILTER_IPTRUST				: 'config spamfilter iptrust'
+CONFIG_LOG_THREAT_WEIGHT				: 'config log threat-weight'
+CONFIG_ICAP_PROFILE						: 'config icap profile'
+CONFIG_USER_LOCAL						: 'config user local'
+CONFIG_USER_GROUP						: 'config user group'
+CONFIG_USER_DEVICE_GROUP				: 'config user device-group'
+CONFIG_VPN_SSL_WEB_HOST_CHECK_SOFTWARE 	: 'config vpn ssl web host-check-software'
+CONFIG_VPN_SSL_WEB_PORTAL				: 'config vpn ssl web portal'
+CONFIG_VPN_SSL_SETTINGS					: 'config vpn ssl settings'
+CONFIG_VOIP_PROFILE						: 'config voip profile'
+CONFIG_WEBFILTER_PROFILe				: 'config webfilter profile'
+
+
+//Found in nested constructions
+CONFIG_ENTRIES							: 'config entries'
+CONFIG_WEB 								: 'config web'
+CONFIG_APPLICATION						: 'config application'
+CONFIG_SIP 								: 'config sip'
+CONFIG_FTGD_WF							: 'config ftgd-wf'
+CONFIG_FILTERS 							: 'config filters'
+
+
+
+
+
+
+END 							: 'end'
+NEXT 							: 'next'
+
+
+
+
 
 /*
 
