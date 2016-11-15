@@ -11,25 +11,32 @@ class Parser:
 
 
 class FortigateConfigParser(Parser):
+	header = None
 	global_section = None # make sure users can use dot notation
 	vdom_sections = None
 
 	def __init__(self, content):
 		self.content = content
-		self.parse()
 
 	def parse(self): # will split config into FortigateGlobal and FortigateVDOM
-		# todo: implement: all stuff that doesn't go to subsection should be available in content
+		splitted_content = self.content.split('\n')
+		self.header = splitted_content[:4]
+
+        # find start of global section
+
+        global_section = GlobalSection(content)
+
+
 		pass
 
 	def unparse(self): # will output config in Fortigate Config format
 		pass
 
-	def init_subsections(self)
+	def init_subsections(self):
 		# todo: implement vdom + glopal section splitter and give splitted results to global_section and vdom_sections
 		pass
 
-class FortigateGlobal(Parser):
+class GlobalSection(Parser):
 	system_global_section = None
 	system_accprofile_section = None
 	system_np6_section = None
@@ -39,7 +46,7 @@ class FortigateGlobal(Parser):
 	system_snmp_community = None
 
 
-	def __init__(self):
+	def __init__(self, content):
 		# todo: move to parse?
 		self.system_replacemsg_section("mail", "email-block")
 	pass
