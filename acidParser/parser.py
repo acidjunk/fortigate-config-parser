@@ -14,6 +14,9 @@ class FortigateConfigParser(Parser):
 	global_section = None # make sure users can use dot notation
 	vdom_sections = None
 
+	def __init__(self, content):
+		self.content = content
+		self.parse()
 
 	def parse(self): # will split config into FortigateGlobal and FortigateVDOM
 		# todo: implement: all stuff that doesn't go to subsection should be available in content
