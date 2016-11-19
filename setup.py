@@ -4,11 +4,7 @@ from setuptools import setup, find_packages
 from fortigate_parser import __version__
 
 APPNAME = 'fortigate-config-parser'
-try:
-   import pypandoc
-   DESCRIPTION = pypandoc.convert('README.md', 'rst')
-except (IOError, ImportError):
-    DESCRIPTION = ''
+
 
 setup(
     name=APPNAME,
@@ -17,14 +13,14 @@ setup(
     include_package_data=True,
     license='GPLv3 License',
     description='A parser and unparser for fortigate config files.',
-    long_description=DESCRIPTION,
     keywords='fortigate config parser',
     url='https://github.com/acidjunk/fortigate-config-parser',
     author='Rene Dohmen',
     author_email='acidjunk@gmail.com',
     install_requires=[],
     classifiers=[
-        'Development Status :: 1 - Alpha',
+        'Development Status :: 2 - Pre-Alpha',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Programming Language :: Python',
