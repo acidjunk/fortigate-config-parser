@@ -11,7 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-
+   About <about.rst>
+   Changelog <changelog>
+   Python API <api>
 
 Indices and tables
 ==================
