@@ -4,3 +4,5 @@ to split the config into chunks that will get parsed by an antlr generated parse
 
 This program will, for now, only contain a parser; e.g. a way to read Fortigate config and split it into a nested
 python dict. Which can be serialzed to a Fortigate config file again.
+
+Read the docs: http://fortigate-config-parser.readthedocs.io/en/latest/
