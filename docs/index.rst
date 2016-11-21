@@ -6,6 +6,8 @@
 Welcome to Fortigate config parser's documentation!
 ===================================================
 
+The project can be found on github: <https://github.com/acidjunk/fortigate-config-parser>
+
 Contents:
 
 .. toctree::
