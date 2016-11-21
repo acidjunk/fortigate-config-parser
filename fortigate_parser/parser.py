@@ -54,7 +54,7 @@ class Parser(object):
     def config_lines(self):
         return self.config.split("\n")
     
-    def number_of_config_lines():
+    def number_of_config_lines(self):
         return len(self.config_lines())
 
 
