@@ -1,4 +1,7 @@
 # python-fortigate-config-parser
+
+[![Build Status](https://travis-ci.org/acidjunk/fortigate-config-parser.svg?branch=master)](https://travis-ci.org/acidjunk/fortigate-config-parser)
+
 A attempt to write a fast and extendable parser for Fortigate Config Files in python. It will use custom python parser
 to split the config into chunks that will get parsed by an antlr generated parser.
 
