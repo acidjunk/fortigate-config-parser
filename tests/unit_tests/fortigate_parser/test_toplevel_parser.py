@@ -14,3 +14,16 @@ class TestToplevelParser(object):
         # test if vdom and global section are found and filled
         assert config_parser.global_section
         assert 'root' in config_parser.vdom_sections
+
+    def test_vdom_section_config_parser(self, complete_config):
+        config_parser = ConfigParser(complete_config)
+        config_parser.parse()
+        config_parser.vdom_sections['root'].parse()
+        assert config_parser.vdom_sections['root'].name == 'root'
+        assert config_parser.vdom_sections['root'].number_of_config_lines() == 1176
+
+    def test_global_section_config_parser(self, complete_config):
+        config_parser = ConfigParser(complete_config)
+        config_parser.parse()
+        config_parser.global_section.parse()
+        assert config_parser.global_section.number_of_config_lines() == 197
