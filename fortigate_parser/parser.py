@@ -82,7 +82,7 @@ class ConfigParser(Parser):
 
         for vdom in vdom_list:
             start = config.find('config vdom\nedit {0}'.format(vdom))
-            end = config.find('end\nend\n\n', start)+12
+            end = config.find('\nend\nend\n', start)+10
             self.vdom_sections[vdom] = VDOMSection(config[start:end])
 
         print("Found VDOMS {0}".format(vdom_list))
