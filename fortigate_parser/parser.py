@@ -124,7 +124,6 @@ class VDOMSection(Parser):
         # find system zone section
         start = config.find('config system zone')
         end = config.find('end\n', start) + 4
-        print config[start:end]
         self.system_zone_section = SystemZoneSection(config=config[start:end])
 
         # We are done for now
