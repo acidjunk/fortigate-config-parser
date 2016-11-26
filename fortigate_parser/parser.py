@@ -37,12 +37,14 @@ class Parser(object):
 
     """
     parsed = False
-    
-    def __init__(self, config):
+    parse_sub_sections = True # allow user to choose if they want to parse the complete tree
+
+    def __init__(self, config, parse_sub_sections=True):
         self.config = config
+        self.parse_sub_sections = parse_sub_sections
 
     def parse(self):
-        pass
+        self.parsed = True
 
     def unparse(self): # will output config in Fortigate Config format
         if self.parsed:
@@ -73,6 +75,8 @@ class ConfigParser(Parser):
         start = config.find('config global')
         end = config.find('end\n\nend\n')+10  # todo; formalize? we are always looking for start and end of sections...
         self.global_section = GlobalSection(config[start:end])
+        if self.parse_sub_sections:
+            self.global_section.parse()
 
         # handle vdoms
         # iterate vdom's at top so search for details can be more explicit
@@ -84,6 +88,8 @@ class ConfigParser(Parser):
             start = config.find('config vdom\nedit {0}'.format(vdom))
             end = config.find('\nend\nend\n', start)+10
             self.vdom_sections[vdom] = VDOMSection(config[start:end])
+            if self.parse_sub_sections:
+                self.vdom_sections[vdom].parse()
 
         print("Found VDOMS {0}".format(vdom_list))
         # Ready parsing the top level.
@@ -120,11 +126,15 @@ class VDOMSection(Parser):
         start = config.find('config system settings')
         end = config.find('end\n', start)+4
         self.system_settings_section = SystemSettingsSection(config=config[start:end])
+        if self.parse_sub_sections:
+            self.system_settings_section.parse()
 
         # find system zone section
         start = config.find('config system zone')
         end = config.find('end\n', start) + 4
         self.system_zone_section = SystemZoneSection(config=config[start:end])
+        if self.parse_sub_sections:
+            self.system_zone_section.parse()
 
         # We are done for now
         self.parsed = True
